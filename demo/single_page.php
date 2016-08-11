@@ -19,8 +19,8 @@ $crawler = new mycrawler();
 $arrJobs = array(
     //任务的名字随便起，这里把名字叫qqnews
     //the key is the name of a job, here names it qqnews
-    'qqnews' => array( 
-        'start_page' => 'http://news.qq.com/a/20140927/026557.htm', //起始网页
+    'rebecca' => array( 
+        'start_page' => 'https://www.ebuy365.com/item-539231.html', //起始网页
         'link_rules' => array(
             /*
              * 所有在这里列出的正则规则，只要能匹配到超链接，那么那条爬虫就会爬到那条超链接
