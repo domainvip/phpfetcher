@@ -12,16 +12,19 @@ class mycrawler extends Phpfetcher_Crawler_Default {
            // echo $res[$i]->plaintext;
             //echo "\n";
               $res[$i]->getAttribute('href');
-            $post_data[$i] = 'url='.$res[$i]->getAttribute('href');
-            $posturl = "http://dev.ebuy365.com/site/add";
+            $post_data[$i] = 'url='.$res[$i]->getAttribute('href').'&search_words=test';
+            $posturl = "http://dev.laidoulaile.com/site/add";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $posturl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch,CURLOPT_HEADER,0);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data[$i]);
-            $output = curl_exec($ch);
+              $output = curl_exec($ch);
+            if ($output === FALSE) {
+                echo "cURL Error: " . curl_error($ch);}
             curl_close($ch);
             print_r($output);
+            sleep(1);
             //echo $post_data[0];
         }
 
