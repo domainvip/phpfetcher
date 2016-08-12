@@ -2,8 +2,7 @@
 //下面两行使得这个项目被下载下来后本文件能直接运行
 $demo_include_path = dirname(__FILE__) . '/../';
 set_include_path(get_include_path() . PATH_SEPARATOR . $demo_include_path);
-$posturl = "http://dev.ebuy365.com/site/add";
-$post_data = array ("url" => "$res[$i]","search_words" => "test");
+
 require_once('phpfetcher.php');
 class mycrawler extends Phpfetcher_Crawler_Default {
     public function handlePage($page) {
@@ -13,9 +12,20 @@ class mycrawler extends Phpfetcher_Crawler_Default {
            // echo $res[$i]->plaintext;
             //echo "\n";
               $res[$i]->getAttribute('href');
-
+            $post_data[$i] = 'url='.$res[$i]->getAttribute('href');
+            $posturl = "http://dev.ebuy365.com/site/add";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $posturl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch,CURLOPT_HEADER,0);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data[$i]);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            print_r($output);
+            //echo $post_data[0];
         }
-        echo $res[0]->getAttribute('href');
+
+
     }
 }
 
